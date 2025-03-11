@@ -48,10 +48,10 @@ final class TaskPayload
     {
         $class = new ReflectionClass($this->schedulingEvent);
 
-        return ! empty(array_merge(
+        return array_merge(
             tap($class->getProperty('filters'))->setAccessible(true)->getValue($this->schedulingEvent),
             tap($class->getProperty('rejects'))->setAccessible(true)->getValue($this->schedulingEvent)
-        ));
+        ) !== [];
     }
 
     private function sanitisedCommand(): string
